@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 //********************************************************************
 //
@@ -44,41 +49,73 @@ public class ThreadExecutor
 		// the non-static developerInfo and other non-static methods
 		ThreadExecutor obj = new ThreadExecutor();
 		obj.developerInfo();
-		List<Integer> vals = obj.getValues();
-		System.out.println(vals.toString());
+		
+		ExecutorService pool = Executors.newFixedThreadPool(3);
+		List<Integer> vals = new ArrayList<Integer>();
+		boolean calculate = true;
+		
+		do {
+			calculate = obj.getValues(vals);
+			obj.getStatistics(pool, vals);
+			
+		} while(calculate);
+		
 
 	} // End of the main method
 	
-	public String getInput () {
-		String values = userIn.nextLine();
-		return values;
+	private void getStatistics(ExecutorService pool, List<Integer> data) {
+		
+		if(!data.isEmpty()) {
+			System.out.println("Data: " + data.toString());
+			System.out.println("Getting statistics...");
+			Future<Integer> average = pool.submit(new AverageCallable(data));
+			Future<Integer> min = pool.submit(new MinCallable(data));
+			Future<Integer> max = pool.submit(new MaxCallable(data));
+			
+			try {
+				System.out.println("ave: " + average.get());
+				System.out.println("min: " + min.get());
+				System.out.println("max: " + max.get());
+			} catch (InterruptedException | ExecutionException | CancellationException e) {
+				System.out.println("a problem occured calculating average");
+			}
+		}
 	}
 	
-	public ArrayList<Integer> getValues() {
+	private String getInput () {
+		String input = userIn.nextLine();
+		return input;
+	}
+	
+	private boolean getValues(List<Integer> newList) {
+		boolean calculate = false;
+		newList.clear(); //clear any prior values
 		System.out.println("Enter a list of integers seperated by a space:");
 		String input = getInput();
-		ArrayList<Integer> values = toList(input);
+		if(!input.equals("0")) {
+			stringToList(input, newList);
+			calculate = true;
+		} else {
+			System.out.println("Goodbye");
+		}
 		
-		return values;
+		return calculate;
 	}
 	
-	public ArrayList<Integer> toList(String values) { 
+	private void stringToList(String values, List<Integer> list) { 
 		String[] strArr = values.replaceAll("\\s+", ",").split(",");
-		ArrayList<Integer> valuesList = new ArrayList<Integer>();
 		
 		for(String strVal : strArr) {
 			try {
 				Integer val = Integer.parseInt(strVal);
-				valuesList.add(val);
+				list.add(val);
 			} catch (NumberFormatException e) {
 				System.out.println("Invalid entry, " + strVal + " ommited");
 			}
 		}
-		
-		return valuesList;
 	}
 	
-	public void printArr(int[] arr) {
+	private void printArr(int[] arr) {
 		System.out.print("[");
 		for(int value : arr) {
 			System.out.print(" " + value + " ");
