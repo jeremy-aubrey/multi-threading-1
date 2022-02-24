@@ -31,7 +31,7 @@ import java.util.concurrent.Future;
 
 public class ThreadExecutor
 {
-	private static Scanner userIn = new Scanner(System.in);
+	private Scanner userIn = new Scanner(System.in);
 	
     //***************************************************************
     //
@@ -44,26 +44,25 @@ public class ThreadExecutor
     //  Returns:      N/A 
     //
     //**************************************************************
-	public static void main(String[] args)
-	{
-		// Create an object of the main class and use it to call
-		// the non-static developerInfo and other non-static methods
+	public static void main(String[] args) {
+		
 		ThreadExecutor obj = new ThreadExecutor();
 		obj.developerInfo();
 		obj.printInstructions();
 		
-		ExecutorService pool = Executors.newFixedThreadPool(3);
-		List<Integer> vals = new ArrayList<Integer>();
-		boolean calculate = true;
+		ExecutorService pool = Executors.newFixedThreadPool(3); //fixed at 3
+		List<Integer> vals = new ArrayList<Integer>(); //to hold input data
+		boolean calculate = true; //control variable
 		
+		/* Continue to perform calculations until 
+		 * the user enters a 0 to quit.*/
 		do {
 			calculate = obj.getValues(vals);
 			obj.getStatistics(pool, vals);
 			
 		} while(calculate);
-		
 
-	} // End of the main method
+	} // end main method
 	
 	public void printInstructions() {
 		System.out.println("\nStatistics Calculator");
@@ -101,7 +100,7 @@ public class ThreadExecutor
 	private boolean getValues(List<Integer> newList) {
 		boolean calculate = false;
 		newList.clear(); //clear any prior values
-		System.out.print("Enter values (# # #):");
+		System.out.print("Enter values: ");
 		String input = getInput();
 		if(!input.equals("0")) {
 			stringToList(input, newList);
