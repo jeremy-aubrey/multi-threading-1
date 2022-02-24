@@ -1,12 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 //********************************************************************
 //
 //  Author:        Jeremy Aubrey
@@ -27,6 +18,16 @@ import java.util.concurrent.Future;
 //                 statistical values for a list of numbers.
 //
 //********************************************************************
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors; 
+import java.util.concurrent.Future;
+
 
 public class ThreadExecutor
 {
@@ -49,6 +50,7 @@ public class ThreadExecutor
 		// the non-static developerInfo and other non-static methods
 		ThreadExecutor obj = new ThreadExecutor();
 		obj.developerInfo();
+		obj.printInstructions();
 		
 		ExecutorService pool = Executors.newFixedThreadPool(3);
 		List<Integer> vals = new ArrayList<Integer>();
@@ -62,6 +64,15 @@ public class ThreadExecutor
 		
 
 	} // End of the main method
+	
+	public void printInstructions() {
+		System.out.println("\nStatistics Calculator");
+		System.out.println("----------------------------------------------");
+		System.out.println("Enter a list of integers seperated by a space");
+		System.out.println("Invalid entries will be ommited");
+		System.out.println("Enter 0 to quit");
+		System.out.println("----------------------------------------------");	
+	}
 	
 	private void getStatistics(ExecutorService pool, List<Integer> data) {
 		
@@ -90,7 +101,7 @@ public class ThreadExecutor
 	private boolean getValues(List<Integer> newList) {
 		boolean calculate = false;
 		newList.clear(); //clear any prior values
-		System.out.println("Enter a list of integers seperated by a space:");
+		System.out.print("Enter values (# # #):");
 		String input = getInput();
 		if(!input.equals("0")) {
 			stringToList(input, newList);
@@ -110,7 +121,7 @@ public class ThreadExecutor
 				Integer val = Integer.parseInt(strVal);
 				list.add(val);
 			} catch (NumberFormatException e) {
-				System.out.println("Invalid entry, " + strVal + " ommited");
+				System.out.println("Invalid entry, '" + strVal + "' ommited");
 			}
 		}
 	}
