@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 //********************************************************************
 //
 //  Author:        Jeremy Aubrey
@@ -21,6 +25,8 @@
 
 public class ThreadExecutor
 {
+	private static Scanner userIn = new Scanner(System.in);
+	
     //***************************************************************
     //
     //  Method:       main
@@ -38,9 +44,47 @@ public class ThreadExecutor
 		// the non-static developerInfo and other non-static methods
 		ThreadExecutor obj = new ThreadExecutor();
 		obj.developerInfo();
-		
+		List<Integer> vals = obj.getValues();
+		System.out.println(vals.toString());
 
 	} // End of the main method
+	
+	public String getInput () {
+		String values = userIn.nextLine();
+		return values;
+	}
+	
+	public ArrayList<Integer> getValues() {
+		System.out.println("Enter a list of integers seperated by a space:");
+		String input = getInput();
+		ArrayList<Integer> values = toList(input);
+		
+		return values;
+	}
+	
+	public ArrayList<Integer> toList(String values) { 
+		String[] strArr = values.replaceAll("\\s+", ",").split(",");
+		ArrayList<Integer> valuesList = new ArrayList<Integer>();
+		
+		for(String strVal : strArr) {
+			try {
+				Integer val = Integer.parseInt(strVal);
+				valuesList.add(val);
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid entry, " + strVal + " ommited");
+			}
+		}
+		
+		return valuesList;
+	}
+	
+	public void printArr(int[] arr) {
+		System.out.print("[");
+		for(int value : arr) {
+			System.out.print(" " + value + " ");
+		}
+		System.out.println("]");
+	}
 	
 	//***************************************************************
     //
