@@ -17,7 +17,7 @@
 //  Description:   A multi-threaded program that calculates various 
 //                 statistical values for a list of numbers.
 //
-//********************************************************************
+//*********************************************************************
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,27 +205,6 @@ public class ThreadExecutor
 			}
 		}
 	}// end stringToList method
-	
-    //***************************************************************
-    //
-    //  Method:       printArr (Non Static)
-    // 
-    //  Description:  Print an int array (input data). 
-    // 
-    //  Parameters:   int[] 
-    //
-    //  Returns:      N/A 
-    //
-    //***************************************************************
-	private void printArr(int[] arr) {
-		
-		System.out.print("[");
-		for(int value : arr) {
-			System.out.print(" " + value + " ");
-		}
-		System.out.println("]");
-		
-	}// end printArr method
 	
     //***************************************************************
     //
