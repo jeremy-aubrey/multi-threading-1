@@ -27,7 +27,7 @@ import java.util.concurrent.Callable;
 
 public class MinCallable implements Callable<Integer> {
 	
-	private List<Integer> data;
+	private List<Integer> data; //reference to data
 	
 	// constructor
 	public MinCallable(List<Integer> data) {
@@ -66,4 +66,4 @@ public class MinCallable implements Callable<Integer> {
 		
 	}// end call method
 
-}// end MinCallable method
+}// end MinCallable class
