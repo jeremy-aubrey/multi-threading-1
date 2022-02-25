@@ -104,17 +104,17 @@ public class ThreadExecutor
 		
 		if(!data.isEmpty()) {
 			
-			System.out.println("Data: " + data.toString()); // display the data set
-			System.out.println("Getting statistics...");
+			System.out.println("\nData: " + data.toString()); // display the data set
+			System.out.println("Getting statistics...\n");
 			Future<Integer> average = pool.submit(new AverageCallable(data)); // gets average
 			Future<Integer> min = pool.submit(new MinCallable(data)); // gets minimum
 			Future<Integer> max = pool.submit(new MaxCallable(data)); // gets maximum
 			
 			try {
 				
-				System.out.println("ave: " + average.get());
-				System.out.println("min: " + min.get());
-				System.out.println("max: " + max.get());
+				System.out.println("The average value is " + average.get());
+				System.out.println("The minimum value is " + min.get());
+				System.out.println("The maximum value is " + max.get() + "\n");
 				
 			} catch (InterruptedException | ExecutionException | CancellationException e) {
 				
