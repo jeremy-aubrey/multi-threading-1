@@ -28,7 +28,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-
 public class ThreadExecutor
 {
 	private Scanner userIn = new Scanner(System.in);
@@ -100,7 +99,7 @@ public class ThreadExecutor
     //  Returns:      N/A 
     //
     //**************************************************************
-	private void getStatistics(ExecutorService pool, List<Integer> data) {
+	public void getStatistics(ExecutorService pool, List<Integer> data) {
 		
 		if(!data.isEmpty()) {
 			
@@ -135,7 +134,7 @@ public class ThreadExecutor
     //  Returns:      String 
     //
     //**************************************************************
-	private String getInput () {
+	public String getInput () {
 		
 		String input = userIn.nextLine();
 		return input;
@@ -156,7 +155,7 @@ public class ThreadExecutor
     //  Returns:      boolean 
     //
     //***************************************************************
-	private boolean getValues(List<Integer> dataList) {
+	public boolean getValues(List<Integer> dataList) {
 		
 		boolean calculate = false; // quit flag
 		dataList.clear(); // clear any prior values
@@ -191,7 +190,7 @@ public class ThreadExecutor
     //  Returns:      N/A 
     //
     //***************************************************************
-	private void stringToList(String values, List<Integer> list) { 
+	public void stringToList(String values, List<Integer> list) { 
 		
 		// convert string into string array
 		String[] strArr = values.replaceAll("\\s+", ",").split(","); 
