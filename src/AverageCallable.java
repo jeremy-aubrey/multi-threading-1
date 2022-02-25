@@ -47,7 +47,7 @@ public class AverageCallable implements Callable<Integer> {
     //
     //  Returns:      Integer 
     //
-    //**************************************************************
+    //***************************************************************
 	@Override
 	public Integer call() throws Exception {
 		
